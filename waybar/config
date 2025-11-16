@@ -1,0 +1,120 @@
+{
+  "layer": "top",
+  "position": "top",
+  "spacing": 1,
+  "exclusive": true,
+  "gtk-layer-shell": true,
+  "passthrough": false,
+  
+  "modules-left": [
+    "hyprland/workspaces",
+    "tray"
+  ],
+  "modules-center": [
+    "mpris"
+  ],
+  "modules-right": [
+    "cpu",
+    "custom/gpu",
+    "custom/gpu-temp",
+    "memory",
+    "pulseaudio",
+    "clock",
+    "custom/notification"
+  ],
+  
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "", 
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "active": "",
+      "default": ""
+    }
+  },
+  
+  "tray": {
+    "spacing": 8,
+    "icon-size": 16
+  },
+  
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{player_icon} {dynamic}",
+    "dynamic-order": ["title", "artist"],
+    "dynamic-len": 40,
+    "player-icons": {
+      "default": "",
+      "spotify": "",
+      "firefox": "󰈹",
+      "chromium": "",
+      "vlc": "󰕼"
+    }
+  },
+  
+  "cpu": {
+    "interval": 5,
+    "format": " {usage}%",
+    "tooltip": false
+  },
+  
+  "custom/gpu": {
+    "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null || echo \"0\"",
+    "format": "󰊴 {}%",
+    "interval": 5,
+    "tooltip": false
+  },
+  
+  "custom/gpu-temp": {
+    "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits 2>/dev/null || echo \"0\"",
+    "format": " {}°",
+    "interval": 5,
+    "tooltip": false
+  },
+  
+  "memory": {
+    "interval": 5,
+    "format": " {percentage}%",
+    "tooltip": false
+  },
+  
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": " 0%",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol",
+    "scroll-step": 5
+  },
+  
+  "clock": {
+    "format": " {:%a %d %b   %H:%M}",
+    "format-alt": " {:%Y-%m-%d}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "year",
+      "on-scroll": 1
+    }
+  },
+  
+  "custom/notification": {
+    "exec": "swaync-client -swb",
+    "exec-if": "which swaync-client",
+    "format": "{icon}",
+    "format-icons": {
+      "none": "󰂚",
+      "dnd": "󰂛", 
+      "notification": "󰍡"
+    },
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "tooltip": false
+  }
+}

@@ -1,0 +1,46 @@
+# Colors (Gruvbox Material Medium Light)
+
+# Default colors
+[colors.primary]
+background = '0x32302f'
+foreground = '0xd4be98'
+#background = '#fbf1c7'
+#foreground = '#654735'
+
+# Normal colors
+[colors.normal]
+black = '0x45403d'
+red = '0xea6962'
+green = '0xa9b665'
+yellow = '0xd8a657'
+blue = '0x7daea3'
+magenta = '0xd3869b'
+cyan = '0x89b482'
+white = '0xd4be98'
+#black   = '#654735'
+#red     = '#c14a4a'
+#green   = '#6c782e'
+#yellow  = '#b47109'
+#blue    = '#45707a'
+#magenta = '#945e80'
+#cyan    = '#4c7a5d'
+#white   = '#eee0b7'
+
+# Bright colors (same as normal colors)
+[colors.bright]
+black = '0x45403d'
+red = '0xea6962'
+green = '0xa9b665'
+yellow = '0xd8a657'
+blue = '0x7daea3'
+magenta = '0xd3869b'
+cyan = '0x89b482'
+white = '0xd4be98'
+#black   = '#654735'
+#red     = '#c14a4a'
+#green   = '#6c782e'
+#yellow  = '#b47109'
+#blue    = '#45707a'
+#magenta = '#945e80'
+#cyan    = '#4c7a5d'
+#white   = '#eee0b7'

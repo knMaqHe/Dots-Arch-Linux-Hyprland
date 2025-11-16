@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=sddm-astronaut-theme
+Description=sddm-astronaut-theme
+Type=sddm-theme
+Version=1.3
+ConfigFile=Themes/astronaut.conf
+MainScript=Main.qml
+TranslationsDirectory=translations
+Theme-Id=sddm-astronaut-theme
+Theme-API=2.0
+QtVersion=6
