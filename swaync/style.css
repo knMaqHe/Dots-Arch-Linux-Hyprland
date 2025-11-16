@@ -1,5 +1,3 @@
-/* https://github.com/Axenide/Dotfiles */
-
 @define-color cc-bg #141b1e;
 @define-color noti-bg #232a2d;
 @define-color noti-bg-darker #141b1e;
@@ -381,3 +379,4 @@
     font-size: x-large;
     color: @brgreen;
 }
+
