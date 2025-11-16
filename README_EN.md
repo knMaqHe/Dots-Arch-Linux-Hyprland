@@ -359,3 +359,13 @@ sudo nvidia-settings
 ---
 
 **When configuring various applications, I explored ready-made configurations from other users. I selected the most effective elements from different setups, adapted them to my needs, and integrated them into my system.**
+
+---
+
+**Place the waybar, swaync, rofi, hypr, alacritty folders in the $HOME/.config/ directory**
+
+
+**Place the Images folder in the $HOME directory**
+
+
+**Place the sddm-astronaut-theme folder in the /usr/share/sddm/themes directory**
