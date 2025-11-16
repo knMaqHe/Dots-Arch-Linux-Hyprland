@@ -1,6 +1,6 @@
 ## Руководство по установке Arch Linux с окружением Hyprland рядом с Windows 11
 
-## Если у вас уже установлен Arch Linux и вы хотите перейти сразу к установке конфигов, то установите следующие требуемые зависимости:
+## Зависимости:
 ```
 pacman -S --needed hyprland wayland wayland-protocols xdg-desktop-portal-hyprland \
     waybar polkit-gnome \
@@ -244,6 +244,30 @@ yay -S bibata-cursor-theme
 echo "exec-once = hyprctl setcursor Bibata-Modern-Ice 24" >> ~/.config/hypr/source/autostart.conf
 echo "env = XCURSOR_THEME,Bibata-Modern-Ice
 env = XCURSOR_SIZE,24" >> ~/.config/hypr/source/environment.conf
+```
+
+### Настройка звука
+```
+# Основные пакеты PipeWire
+sudo pacman -S pipewire pipewire-pulse pipewire-audio pipewire-alsa
+sudo pacman -S wireplumber
+
+# Дополнительные кодекки и поддержка
+sudo pacman -S gst-plugin-pipewire gst-plugins-good gst-plugins-bad gst-plugins-ugly
+
+# GUI для управления звуком
+sudo pacman -S helvum pavucontrol
+```
+
+### Включение сервисов
+```
+# Для пользовательского уровня
+systemctl --user enable pipewire pipewire-pulse wireplumber
+systemctl --user start pipewire pipewire-pulse wireplumber
+
+# Проверка статуса
+systemctl --user status pipewire
+systemctl --user status wireplumber
 ```
 
 ---
