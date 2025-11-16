@@ -1,7 +1,22 @@
 ## Arch Linux Installation Guide with Hyprland alongside Windows 11
 
 ## If you already have Arch Linux installed and want to skip to configuration setup, install these required dependencies:
-```pacman -S --needed sddm qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpegsddm```
+```
+pacman -S --needed hyprland wayland wayland-protocols xdg-desktop-portal-hyprland \
+    waybar polkit-gnome \
+    hyprpaper hyprlock hypridle hyprpolkitagent \
+    mesa vulkan-icd-loader pipewire
+pacman -S --needed alacritty nautilus rofi-wayland firefox swaync
+pacman -S --needed sddm sddm-kcm qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
+pacman -S --needed ttf-firacode-nerd noto-fonts noto-fonts-emoji ttf-dejavu
+pacman -S --needed ttf-nerd-fonts-symbols-mono ttf-ibm-plex
+pacman -S --needed grim slurp wl-clipboard cliphist
+pacman -S --needed brightnessctl playerctl wireplumber
+pacman -S --needed udiskie udisks2 file-roller
+pacman -S --needed git curl wget dbus
+pacman -S --needed pulseaudio pulseaudio-alsa pavucontrol
+pacman -S --needed papirus-icon-theme lxappearance kvantum nwg-look
+```
 
 ## Preparation for Installation
 
