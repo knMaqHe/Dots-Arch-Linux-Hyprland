@@ -1,5 +1,22 @@
 ## Руководство по установке Arch Linux с окружением Hyprland рядом с Windows 11
 
+## Если у вас уже установлен Arch Linux и вы хотите перейти сразу к установке конфигов, то установите следующие требуемые зависимости:
+```
+pacman -S --needed hyprland wayland wayland-protocols xdg-desktop-portal-hyprland \
+    waybar polkit-gnome \
+    hyprpaper hyprlock hypridle hyprpolkitagent \
+    mesa vulkan-icd-loader pipewire
+pacman -S --needed alacritty nautilus rofi-wayland firefox swaync
+pacman -S --needed sddm sddm-kcm qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
+pacman -S --needed ttf-firacode-nerd noto-fonts noto-fonts-emoji ttf-dejavu
+pacman -S --needed ttf-nerd-fonts-symbols-mono ttf-ibm-plex
+pacman -S --needed grim slurp wl-clipboard cliphist
+pacman -S --needed brightnessctl playerctl wireplumber
+pacman -S --needed udiskie udisks2 file-roller
+pacman -S --needed git curl wget dbus
+pacman -S --needed pulseaudio pulseaudio-alsa pavucontrol
+pacman -S --needed papirus-icon-theme lxappearance kvantum nwg-look
+```
 ## Подготовка к установке
 
 ### Подключение и проверка сети
@@ -129,33 +146,34 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ### Hyprland и Wayland компоненты
 ```
-pacman -S hyprland wayland wayland-protocols xdg-desktop-portal-hyprland \
-    waybar rofi alacritty thunar polkit-gnome \
+pacman -S --needed hyprland wayland wayland-protocols xdg-desktop-portal-hyprland \
+    waybar polkit-gnome \
     hyprpaper hyprlock hypridle hyprpolkitagent \
-    git curl wget swaync dbus cliphist wl-clipboard
+    mesa vulkan-icd-loader pipewire
 ```
 
 ### Дисплейный менеджер
 ```
-pacman -S sddm sddm-kcm qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
+pacman -S --needed sddm sddm-kcm qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
 systemctl enable sddm
 ```
 
 ### Основные приложения
 ```
-pacman -S alacritty nautilus rofi-wayland firefox
+pacman -S --needed alacritty nautilus rofi-wayland firefox swaync
 ```
 
 ### Системные утилиты
 ```
 pacman -S grim slurp wl-clipboard cliphist
 pacman -S brightnessctl playerctl wireplumber
-pacman -S udiskie udisks2 file-roller polkit-gnome
+pacman -S udiskie udisks2 file-roller
+pacman -S git curl wget dbus
 ```
 
 ### Звуковая система
 ```
-pacman -S pulseaudio pulseaudio-alsa pavucontrol wireplumber
+pacman -S pulseaudio pulseaudio-alsa pavucontrol
 ```
 
 ### Шрифты
@@ -169,11 +187,6 @@ pacman -S ttf-nerd-fonts-symbols-mono ttf-ibm-plex
 pacman -S papirus-icon-theme lxappearance kvantum nwg-look
 ```
 
-### Курсоры
-```
-pacman -S bibata-cursors bibata-extra-cursors
-```
-
 ## 🎨 Настройка окружения
 
 ### Создание конфигурационных директорий
@@ -183,22 +196,21 @@ mkdir -p /home/username/.config/waybar
 mkdir -p /home/username/Images/Wallpaper
 ```
 
-### Настройка курсора
-Добавьте в `/etc/environment`:
+### Загрузка конфигов с репозитория GitHub
 ```
-XCURSOR_THEME=Bibata-Modern-Ice
-XCURSOR_SIZE=24
+git clone https://github.com/knMaqHe/Dots-Arch-Linux-Hyprland.git
 ```
 
-### Настройка темы SDDM
-```
-nano /etc/sddm.conf.d/theme.conf
-```
+### Установка конфигов
+Переместите соответствующие папки с конфигурациями для Hyprland, rofi, waybar, alacritty в директорию `~/.config`. Папку `Images` переместите в домашнюю директорию пользователя
 
-Добавьте:
+### Установка кастомной темы для SDDM
+Переместите папку `sddm-astronaut-theme` в директорию `/usr/share/sddm/themes` и выполните:
 ```
-[Theme]
-Current="sddm-astronaut-theme"
+echo "[Theme]
+Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
+echo "[General]
+InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
 ```
 
 ## 🚀 Завершение установки
@@ -220,140 +232,18 @@ reboot
 ```
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git
+chmod 777 yay 
 cd yay
 makepkg -si
-
-# Или альтернативный вариант:
-git clone https://aur.archlinux.org/yay-bin.git
-cd yay-bin
-makepkg -si
-cd .. && rm -rf yay-bin
+cd .. && rm -rf yay
 ```
 
-### Установка тем (опционально)
+### Установка курсора Bibata
 ```
-# Тема для Nautilus
-yay -S gruvbox-gtk-theme
-
-# Тема для SDDM
-yay -S sddm-theme-astronaut
-```
-
-### Установка кастомной темы для SDDM
-Переместите папку `sddm-astronaut-theme` в директорию `/usr/share/sddm/themes` и выполните:
-```
-echo "[Theme]
-Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
-```
-
-### Установка конфигов
-Переместите соответствующие папки с конфигурациями для Hyprland, rofi, waybar, alacritty в директорию `~/.config`.
-
-## Установка драйверов NVIDIA в Arch Linux
-
-## 📋 Быстрая установка (все команды)
-
-```
-# Установка драйверов
-sudo pacman -S nvidia nvidia-utils nvidia-settings lib32-nvidia-utils linux-headers
-
-# Настройка ядра
-echo 'options nvidia_drm modeset=1' | sudo tee /etc/modprobe.d/nvidia.conf
-sudo sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="nvidia_drm.modeset=1"/' /etc/default/grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-# Черный список nouveau
-echo "blacklist nouveau" | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
-
-# Обновление initramfs
-sudo mkinitcpio -P
-
-# Перезагрузка
-reboot
-```
-
-## 📦 Установка драйверов
-
-### Основные драйверы
-```
-sudo pacman -S nvidia nvidia-utils nvidia-settings
-```
-
-### Создание конфигурации modprobe
-```
-sudo nano /etc/modprobe.d/nvidia.conf
-```
-
-Добавьте:
-```
-options nvidia_drm modeset=1
-```
-
-## 🎯 Настройка для Wayland/Hyprland
-
-### Добавление переменных окружения
-```
-sudo nano /etc/environment
-```
-
-Добавьте следующие строки:
-```
-LIBVA_DRIVER_NAME=nvidia
-GBM_BACKEND=nvidia-drm
-__GLX_VENDOR_LIBRARY_NAME=nvidia
-WLR_NO_HARDWARE_CURSORS=1
-```
-
-### Конфигурация Hyprland
-```
-nano ~/.config/hypr/environment.conf
-```
-
-Добавьте:
-```
-env = LIBVA_DRIVER_NAME,nvidia
-env = GBM_BACKEND,nvidia-drm
-env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-env = WLR_NO_HARDWARE_CURSORS,1
-```
-
-## 🔄 Обновление системы
-
-### Обновление initramfs
-```
-sudo mkinitcpio -P
-```
-
-### Перезагрузка системы
-```
-reboot
-```
-
-## 🧪 Проверка установки
-
-### Проверка драйверов и карты
-```
-nvidia-smi
-```
-
-### Проверка OpenGL
-```
-glxinfo | grep "OpenGL renderer"
-```
-
-### Проверка Vulkan
-```
-vulkaninfo | grep "deviceName"
-```
-
-### Тест производительности
-```
-glxgears
-```
-
-### Настройка производительности
-```
-sudo nvidia-settings
+yay -S bibata-cursor-theme
+echo "exec-once = hyprctl setcursor Bibata-Modern-Ice 24" >> ~/.config/hypr/source/autostart.conf
+echo "env = XCURSOR_THEME,Bibata-Modern-Ice
+env = XCURSOR_SIZE,24" >> ~/.config/hypr/source/environment.conf
 ```
 
 ---
@@ -361,12 +251,3 @@ sudo nvidia-settings
 **В процессе настройки конфигураций для различных приложений я изучал готовые решения других пользователей. Я брал наиболее удачные элементы из разных конфигураций, адаптировал их под свои потребности и интегрировал в свою систему.**
 
 ---
-
-**Папки waybar, swaync, rofi, hypr, alacritty положите в папку $HOME/.config/**
-
-
-**Папку Images расположите по пути ~/**
-
-
-**Папку sddm-astronaut-theme положите в папку /usr/share/sddm/themes**
-
