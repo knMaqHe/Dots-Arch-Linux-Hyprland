@@ -132,7 +132,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S hyprland wayland wayland-protocols xdg-desktop-portal-hyprland \
     waybar rofi alacritty thunar polkit-gnome \
     hyprpaper hyprlock hypridle hyprpolkitagent \
-    git curl wget swaync
+    git curl wget swaync dbus cliphist wl-clipboard
 ```
 
 ### Display Manager
